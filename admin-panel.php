@@ -39,10 +39,15 @@ if(isset($_POST['app-submit']))
 	
   if(date("Y-m-d",$appdate1)>=$cur_date){
     if((date("Y-m-d",$appdate1)==$cur_date and date("H:i:s",$apptime1)>$cur_time) or date("Y-m-d",$appdate1)>$cur_date) {
-      $check_query = mysqli_query($con,"select apptime from appointmenttb where doctor='$doctor' and appdate='$appdate' and apptime='$apptime'");
+      $stmt_check=mysqli_prepare($con,"select apptime from appointmenttb where doctor=? and appdate=? and apptime=?");
+      mysqli_stmt_bind_param($stmt_check,'sss',$doctor,$appdate,$apptime);
+      mysqli_stmt_execute($stmt_check);
+      $check_query=mysqli_stmt_get_result($stmt_check);
 
         if(mysqli_num_rows($check_query)==0){
-          $query=mysqli_query($con,"insert into appointmenttb(pid,fname,lname,gender,email,contact,doctor,docFees,appdate,apptime,userStatus,doctorStatus) values($pid,'$fname','$lname','$gender','$email','$contact','$doctor','$docFees','$appdate','$apptime','1','1')");
+          $stmt=mysqli_prepare($con,"insert into appointmenttb(pid,fname,lname,gender,email,contact,doctor,docFees,appdate,apptime,userStatus,doctorStatus) values(?,?,?,?,?,?,?,?,?,?,'1','1')");
+          mysqli_stmt_bind_param($stmt,'isssssssss',$pid,$fname,$lname,$gender,$email,$contact,$doctor,$docFees,$appdate,$apptime);
+          $query=mysqli_stmt_execute($stmt);
 
           if($query)
           {
@@ -68,7 +73,10 @@ if(isset($_POST['app-submit']))
 
 if(isset($_GET['cancel']))
   {
-    $query=mysqli_query($con,"update appointmenttb set userStatus='0' where ID = '".$_GET['ID']."'");
+    $id = $_GET['ID'];
+    $stmt=mysqli_prepare($con,"update appointmenttb set userStatus='0' where ID=?");
+    mysqli_stmt_bind_param($stmt,'i',$id);
+    $query=mysqli_stmt_execute($stmt);
     if($query)
     {
       echo "<script>alert('Your appointment successfully cancelled');</script>";
@@ -82,8 +90,12 @@ if(isset($_GET['cancel']))
 function generate_bill(){
   $con=mysqli_connect("localhost","root","","myhmsdb");
   $pid = $_SESSION['pid'];
+  $id = $_GET['ID'];
   $output='';
-  $query=mysqli_query($con,"select p.pid,p.ID,p.fname,p.lname,p.doctor,p.appdate,p.apptime,p.disease,p.allergy,p.prescription,a.docFees from prestb p inner join appointmenttb a on p.ID=a.ID and p.pid = '$pid' and p.ID = '".$_GET['ID']."'");
+  $stmt=mysqli_prepare($con,"select p.pid,p.ID,p.fname,p.lname,p.doctor,p.appdate,p.apptime,p.disease,p.allergy,p.prescription,a.docFees from prestb p inner join appointmenttb a on p.ID=a.ID and p.pid=? and p.ID=?");
+  mysqli_stmt_bind_param($stmt,'ii',$pid,$id);
+  mysqli_stmt_execute($stmt);
+  $query=mysqli_stmt_get_result($stmt);
   while($row = mysqli_fetch_array($query)){
     $output .= '
     <label> Patient ID : </label>'.$row["pid"].'<br/><br/>
@@ -469,8 +481,10 @@ function get_specs(){
                     $con=mysqli_connect("localhost","root","","myhmsdb");
                     global $con;
 
-                    $query = "select ID,doctor,docFees,appdate,apptime,userStatus,doctorStatus from appointmenttb where fname ='$fname' and lname='$lname';";
-                    $result = mysqli_query($con,$query);
+                    $stmt = mysqli_prepare($con,"select ID,doctor,docFees,appdate,apptime,userStatus,doctorStatus from appointmenttb where fname=? and lname=?");
+                    mysqli_stmt_bind_param($stmt,'ss',$fname,$lname);
+                    mysqli_stmt_execute($stmt);
+                    $result = mysqli_stmt_get_result($stmt);
                     while ($row = mysqli_fetch_array($result)){
               
                       #$fname = $row['fname'];
@@ -545,9 +559,10 @@ function get_specs(){
                     $con=mysqli_connect("localhost","root","","myhmsdb");
                     global $con;
 
-                    $query = "select doctor,ID,appdate,apptime,disease,allergy,prescription from prestb where pid='$pid';";
-                    
-                    $result = mysqli_query($con,$query);
+                    $stmt = mysqli_prepare($con,"select doctor,ID,appdate,apptime,disease,allergy,prescription from prestb where pid=?");
+                    mysqli_stmt_bind_param($stmt,'i',$pid);
+                    mysqli_stmt_execute($stmt);
+                    $result = mysqli_stmt_get_result($stmt);
                     if(!$result){
                       echo mysqli_error($con);
                     }

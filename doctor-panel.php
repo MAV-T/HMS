@@ -5,7 +5,10 @@ $con=mysqli_connect("localhost","root","","myhmsdb");
 $doctor = $_SESSION['dname'];
 if(isset($_GET['cancel']))
   {
-    $query=mysqli_query($con,"update appointmenttb set doctorStatus='0' where ID = '".$_GET['ID']."'");
+    $id = $_GET['ID'];
+    $stmt=mysqli_prepare($con,"update appointmenttb set doctorStatus='0' where ID=?");
+    mysqli_stmt_bind_param($stmt,'i',$id);
+    $query=mysqli_stmt_execute($stmt);
     if($query)
     {
       echo "<script>alert('Your appointment successfully cancelled');</script>";

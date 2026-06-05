@@ -30,7 +30,9 @@ if(isset($_POST['prescribe']) && isset($_POST['pid']) && isset($_POST['ID']) && 
   $ID = $_POST['ID'];
   $prescription = $_POST['prescription'];
   
-  $query=mysqli_query($con,"insert into prestb(doctor,pid,ID,fname,lname,appdate,apptime,disease,allergy,prescription) values ('$doctor','$pid','$ID','$fname','$lname','$appdate','$apptime','$disease','$allergy','$prescription')");
+  $stmt=mysqli_prepare($con,"insert into prestb(doctor,pid,ID,fname,lname,appdate,apptime,disease,allergy,prescription) values (?,?,?,?,?,?,?,?,?,?)");
+  mysqli_stmt_bind_param($stmt,'ssssssssss',$doctor,$pid,$ID,$fname,$lname,$appdate,$apptime,$disease,$allergy,$prescription);
+  $query=mysqli_stmt_execute($stmt);
     if($query)
     {
       echo "<script>alert('Prescribed successfully!');</script>";

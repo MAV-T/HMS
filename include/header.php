@@ -32,12 +32,16 @@
 
 
 
-									<?php $query=mysqli_query($con,"select fullName from users where id='".$_SESSION['id']."'");
+									<?php
+$stmt=mysqli_prepare($con,"select fullName from users where id=?");
+mysqli_stmt_bind_param($stmt,'i',$_SESSION['id']);
+mysqli_stmt_execute($stmt);
+$query=mysqli_stmt_get_result($stmt);
 while($row=mysqli_fetch_array($query))
 {
 	echo $row['fullName'];
 }
-									?> <i class="ti-angle-down"></i></i></span>
+?> <i class="ti-angle-down"></i></i></span>
 								</a>
 								<ul class="dropdown-menu dropdown-dark">
 									<li>
