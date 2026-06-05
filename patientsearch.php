@@ -11,8 +11,11 @@ include("newfunc.php");
 if(isset($_POST['patient_search_submit']))
 {
 	$contact=$_POST['patient_contact'];
-	$query = "select * from patreg where contact= '$contact'";
-  $result = mysqli_query($con,$query);
+	$query = "select * from patreg where contact=?";
+  $stmt = mysqli_prepare($con,$query);
+  mysqli_stmt_bind_param($stmt,'s',$contact);
+  mysqli_stmt_execute($stmt);
+  $result = mysqli_stmt_get_result($stmt);
   $row=mysqli_fetch_array($result);
   if($row['lname']=="" & $row['email']=="" & $row['contact']=="" & $row['password']==""){
     echo "<script> alert('No entries found! Please enter valid details'); 

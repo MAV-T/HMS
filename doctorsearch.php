@@ -12,8 +12,11 @@ include("newfunc.php");
 if(isset($_POST['doctor_search_submit']))
 {
 	$contact=$_POST['doctor_contact'];
-  $query = "select * from doctb where email= '$contact'";
-  $result = mysqli_query($con,$query);
+  $query = "select * from doctb where email=?";
+  $stmt = mysqli_prepare($con,$query);
+  mysqli_stmt_bind_param($stmt,'s',$contact);
+  mysqli_stmt_execute($stmt);
+  $result = mysqli_stmt_get_result($stmt);
   $row=mysqli_fetch_array($result);
   if($row['username']=="" & $row['password']=="" & $row['email']=="" & $row['docFees']==""){
     echo "<script> alert('No entries found!'); 

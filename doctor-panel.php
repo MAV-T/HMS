@@ -24,7 +24,7 @@ if(isset($_GET['cancel']))
   //   $disease = $_GET['disease'];
   //   $allergy = $_GET['allergy'];
   //   $prescription = $_GET['prescription'];
-  //   $query=mysqli_query($con,"insert into prestb(doctor,pid,ID,appdate,apptime,disease,allergy,prescription) values ('$doctor',$pid,$ID,'$appdate','$apptime','$disease','$allergy','$prescription');");
+  //   $query=($con,"insert into prestb(doctor,pid,ID,appdate,apptime,disease,allergy,prescription) values ('$doctor',$pid,$ID,'$appdate','$apptime','$disease','$allergy','$prescription');");
   //   if($query)
   //   {
   //     echo "<script>alert('Prescribed successfully!');</script>";
@@ -185,8 +185,11 @@ if(isset($_GET['cancel']))
                     $con=mysqli_connect("localhost","root","","myhmsdb");
                     global $con;
                     $dname = $_SESSION['dname'];
-                    $query = "select pid,ID,fname,lname,gender,email,contact,appdate,apptime,userStatus,doctorStatus from appointmenttb where doctor='$dname';";
-                    $result = mysqli_query($con,$query);
+                    $query = "select pid,ID,fname,lname,gender,email,contact,appdate,apptime,userStatus,doctorStatus from appointmenttb where doctor=?";
+                    $stmt = mysqli_prepare($con,$query);
+                    mysqli_stmt_bind_param($stmt,'s',$dname);
+                    mysqli_stmt_execute($stmt);
+                    $result = mysqli_stmt_get_result($stmt);
                     while ($row = mysqli_fetch_array($result)){
                       ?>
                       <tr>
@@ -278,9 +281,11 @@ if(isset($_GET['cancel']))
                     $con=mysqli_connect("localhost","root","","myhmsdb");
                     global $con;
 
-                    $query = "select pid,fname,lname,ID,appdate,apptime,disease,allergy,prescription from prestb where doctor='$doctor';";
-                    
-                    $result = mysqli_query($con,$query);
+                    $query = "select pid,fname,lname,ID,appdate,apptime,disease,allergy,prescription from prestb where doctor=?";
+                    $stmt = mysqli_prepare($con,$query);
+                    mysqli_stmt_bind_param($stmt,'s',$doctor);
+                    mysqli_stmt_execute($stmt);
+                    $result = mysqli_stmt_get_result($stmt);
                     if(!$result){
                       echo mysqli_error($con);
                     }

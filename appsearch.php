@@ -14,7 +14,7 @@ if(isset($_POST['app_search_submit']))
 {
 	$contact=$_POST['app_contact'];
 	$query = "select * from appointmenttb where contact= '$contact';";
-  $result = mysqli_query($con,$query);
+  $result = ($con,$query);
   $row=mysqli_fetch_array($result);
   if($row['fname']=="" & $row['lname']=="" & $row['email']=="" & $row['contact']=="" & $row['doctor']=="" & $row['docFees']=="" & $row['appdate']=="" & $row['apptime']==""){
     echo "<script> alert('No entries found! Please enter valid details'); 

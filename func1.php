@@ -25,20 +25,6 @@ if(isset($_POST['docsub1'])){
   }
 }
 
-
-// if(isset($_POST['update_data']))  
-//   $result=mysqli_query($con,$query);
-//   if(mysqli_num_rows($result)==1)
-//   {
-//     $_SESSION['username']=$username;
-//     header("Location:admin-panel.php");
-//   }
-//   else
-//     header("Location:error2.php");
-  
-
-
-
 function display_docs()
 {
 	global $con;
@@ -51,16 +37,6 @@ function display_docs()
 		echo '<option value="'.$name.'">'.$name.'</option>';
 	}
 }
-
-// if(isset($_POST['doc_sub']))
-// {
-// 	$name=$_POST['name'];
-// 	$query="insert into doctb(name)values('$name')";
-// 	$result=mysqli_query($con,$query);
-// 	if($result)
-// 		header("Location:adddoc.php");
-// }
-
 
 function display_admin_panel(){
 	echo '<!DOCTYPE html>
