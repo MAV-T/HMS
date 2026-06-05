@@ -19,8 +19,10 @@ if(isset($_POST['update_data']))
 {
  $contact=$_POST['contact'];
  $status=$_POST['status'];
- $query="update appointmenttb set payment='$status' where contact='$contact';";
- $result=mysqli_query($con,$query);
+ $query="update appointmenttb set payment=? where contact=?";
+ $stmt=mysqli_prepare($con,$query);
+ mysqli_stmt_bind_param($stmt,'ss',$status,$contact);
+ $result=mysqli_stmt_execute($stmt);
  if($result)
   header("Location:updated.php");
 }
@@ -80,8 +82,10 @@ function display_docs()
 if(isset($_POST['doc_sub']))
 {
  $username=$_POST['username'];
- $query="insert into doctb(username)values('$username')";
- $result=mysqli_query($con,$query);
+ $query="insert into doctb(username)values(?)";
+ $stmt=mysqli_prepare($con,$query);
+ mysqli_stmt_bind_param($stmt,'s',$username);
+ $result=mysqli_stmt_execute($stmt);
  if($result)
   header("Location:adddoc.php");
 }

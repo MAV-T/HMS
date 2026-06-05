@@ -4,8 +4,11 @@ $con=mysqli_connect("localhost","root","","myhmsdb");
 if(isset($_POST['patsub'])){
 	$email=$_POST['email'];
 	$password=$_POST['password2'];
-	$query="select * from patreg where email='$email' and password='$password';";
-	$result=mysqli_query($con,$query);
+	$query="select * from patreg where email=? and password=?";
+	$stmt=mysqli_prepare($con,$query);
+	mysqli_stmt_bind_param($stmt,'ss',$email,$password);
+	mysqli_stmt_execute($stmt);
+	$result=mysqli_stmt_get_result($stmt);
 	if(mysqli_num_rows($result)==1)
 	{
 		while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
@@ -30,8 +33,10 @@ if(isset($_POST['update_data']))
 {
 	$contact=$_POST['contact'];
 	$status=$_POST['status'];
-	$query="update appointmenttb set payment='$status' where contact='$contact';";
-	$result=mysqli_query($con,$query);
+	$query="update appointmenttb set payment=? where contact=?";
+	$stmt=mysqli_prepare($con,$query);
+	mysqli_stmt_bind_param($stmt,'ss',$status,$contact);
+	$result=mysqli_stmt_execute($stmt);
 	if($result)
 		header("Location:updated.php");
 }
@@ -58,8 +63,10 @@ if(isset($_POST['doc_sub']))
   $dpassword=$_POST['dpassword'];
   $demail=$_POST['demail'];
   $docFees=$_POST['docFees'];
-	$query="insert into doctb(username,password,email,docFees)values('$doctor','$dpassword','$demail','$docFees')";
-	$result=mysqli_query($con,$query);
+	$query="insert into doctb(username,password,email,docFees)values(?,?,?,?)";
+	$stmt=mysqli_prepare($con,$query);
+	mysqli_stmt_bind_param($stmt,'ssss',$doctor,$dpassword,$demail,$docFees);
+	$result=mysqli_stmt_execute($stmt);
 	if($result)
 		header("Location:adddoc.php");
 }

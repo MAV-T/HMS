@@ -11,8 +11,10 @@ if(isset($_POST['docsub']))
   $demail=$_POST['demail'];
   $spec=$_POST['special'];
   $docFees=$_POST['docFees'];
-  $query="insert into doctb(username,password,email,spec,docFees)values('$doctor','$dpassword','$demail','$spec','$docFees')";
-  $result=mysqli_query($con,$query);
+  $query="insert into doctb(username,password,email,spec,docFees) values(?,?,?,?,?)";
+  $stmt=mysqli_prepare($con,$query);
+  mysqli_stmt_bind_param($stmt,'sssss',$doctor,$dpassword,$demail,$spec,$docFees);
+  $result=mysqli_stmt_execute($stmt);
   if($result)
     {
       echo "<script>alert('Doctor added successfully!');</script>";
@@ -23,8 +25,10 @@ if(isset($_POST['docsub']))
 if(isset($_POST['docsub1']))
 {
   $demail=$_POST['demail'];
-  $query="delete from doctb where email='$demail';";
-  $result=mysqli_query($con,$query);
+  $query="delete from doctb where email=?";
+  $stmt=mysqli_prepare($con,$query);
+  mysqli_stmt_bind_param($stmt,'s',$demail);
+  $result=mysqli_stmt_execute($stmt);
   if($result)
     {
       echo "<script>alert('Doctor removed successfully!');</script>";
