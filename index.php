@@ -114,7 +114,7 @@ function checklen()
                                             <input type="email" class="form-control" placeholder="Your Email *" name="email"  />
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control" placeholder="Password *" id="password" name="password" onkeyup='check();' required/>
+                                            <input type="password" class="form-control" placeholder="Password *" id="password" name="password" onkeyup='check();' autocomplete="off"required/>
                                         </div>
                                         
                                         <div class="form-group">
@@ -141,7 +141,7 @@ function checklen()
                                             <input type="tel" minlength="10" maxlength="10" name="contact" class="form-control" placeholder="Your Phone *"  />
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control"  id="cpassword" placeholder="Confirm Password *" name="cpassword"  onkeyup='check();' required/><span id='message'></span>
+                                            <input type="password" class="form-control"  id="cpassword" placeholder="Confirm Password *" name="cpassword"  onkeyup='check();' autocomplete="off" required/><span id='message'></span>
                                         </div>
                                         <input type="submit" class="btnRegister" name="patsub1" onclick="return checklen();" value="Register"/>
                                     </div>
@@ -163,7 +163,7 @@ function checklen()
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="password" class="form-control" placeholder="Password *" name="password3" required/>
+                                            <input type="password" class="form-control" placeholder="Password *" name="password3" autocomplete="off"required/>
                                         </div>
                                         
                                         <input type="submit" class="btnRegister" name="docsub1" value="Login"/>
@@ -188,7 +188,7 @@ function checklen()
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="password" class="form-control" placeholder="Password *" name="password2" required/>
+                                            <input type="password" class="form-control" placeholder="Password *" name="password2" autocomplete="off" required/>
                                         </div>
                                         
                                         <input type="submit" class="btnRegister" name="adsub" value="Login"/>

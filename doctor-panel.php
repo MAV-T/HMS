@@ -351,7 +351,7 @@ if(isset($_GET['cancel']))
                   <div class="col-md-4"><label>Doctor Name:</label></div>
                   <div class="col-md-8"><input type="text" class="form-control" name="doctor" required></div><br><br>
                   <div class="col-md-4"><label>Password:</label></div>
-                  <div class="col-md-8"><input type="password" class="form-control"  name="dpassword" required></div><br><br>
+                  <div class="col-md-8"><input type="password" class="form-control" name="dpassword" autocomplete="off"required></div><br><br>
                   <div class="col-md-4"><label>Email ID:</label></div>
                   <div class="col-md-8"><input type="email"  class="form-control" name="demail" required></div><br><br>
                   <div class="col-md-4"><label>Consultancy Fees:</label></div>
