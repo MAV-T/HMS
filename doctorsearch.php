@@ -30,7 +30,6 @@ if(isset($_POST['doctor_search_submit']))
   <thead>
     <tr>
       <th scope='col'>Username</th>
-      <th scope='col'>Password</th>
       <th scope='col'>Email</th>
       <th scope='col'>Consultancy Fees</th>
     </tr>
@@ -39,12 +38,10 @@ if(isset($_POST['doctor_search_submit']))
 
 	// while ($row=mysqli_fetch_array($result)){
 		    $username = htmlspecialchars($row['username'], ENT_QUOTES, 'UTF-8');
-        $password = htmlspecialchars($row['password'], ENT_QUOTES, 'UTF-8');
         $email = htmlspecialchars($row['email'], ENT_QUOTES, 'UTF-8');
         $docFees = htmlspecialchars($row['docFees'], ENT_QUOTES, 'UTF-8');
         echo "<tr>
           <td>$username</td>
-          <td>$password</td>
           <td>$email</td>
           <td>$docFees</td>
         </tr>";

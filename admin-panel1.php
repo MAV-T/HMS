@@ -274,7 +274,6 @@ if(isset($_POST['docsub1']))
                     <th scope="col">Doctor Name</th>
                     <th scope="col">Specialization</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Password</th>
                     <th scope="col">Fees</th>
                   </tr>
                 </thead>
@@ -288,14 +287,12 @@ if(isset($_POST['docsub1']))
                       $username = htmlspecialchars($row['username'], ENT_QUOTES, 'UTF-8');
                       $spec = htmlspecialchars($row['spec'], ENT_QUOTES, 'UTF-8');
                       $email = htmlspecialchars($row['email'], ENT_QUOTES, 'UTF-8');
-                      $password = htmlspecialchars($row['password'], ENT_QUOTES, 'UTF-8');
                       $docFees = htmlspecialchars($row['docFees'], ENT_QUOTES, 'UTF-8');
                       
                       echo "<tr>
                         <td>$username</td>
                         <td>$spec</td>
                         <td>$email</td>
-                        <td>$password</td>
                         <td>$docFees</td>
                       </tr>";
                     }
@@ -327,7 +324,6 @@ if(isset($_POST['docsub1']))
                     <th scope="col">Gender</th>
                     <th scope="col">Email</th>
                     <th scope="col">Contact</th>
-                    <th scope="col">Password</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -343,7 +339,6 @@ if(isset($_POST['docsub1']))
                       $gender = htmlspecialchars($row['gender'], ENT_QUOTES, 'UTF-8');
                       $email = htmlspecialchars($row['email'], ENT_QUOTES, 'UTF-8');
                       $contact = htmlspecialchars($row['contact'], ENT_QUOTES, 'UTF-8');
-                      $password = htmlspecialchars($row['password'], ENT_QUOTES, 'UTF-8');
                       
                       echo "<tr>
                         <td>$pid</td>
@@ -352,7 +347,6 @@ if(isset($_POST['docsub1']))
                         <td>$gender</td>
                         <td>$email</td>
                         <td>$contact</td>
-                        <td>$password</td>
                       </tr>";
                     }
 

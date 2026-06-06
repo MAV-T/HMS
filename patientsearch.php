@@ -32,7 +32,6 @@ if(isset($_POST['patient_search_submit']))
       <th scope='col'>Last Name</th>
       <th scope='col'>Email</th>
       <th scope='col'>Contact</th>
-      <th scope='col'>Password</th>
     </tr>
   </thead>
   <tbody>";
@@ -42,13 +41,11 @@ if(isset($_POST['patient_search_submit']))
         $lname = htmlspecialchars($row['lname'], ENT_QUOTES, 'UTF-8');
         $email = htmlspecialchars($row['email'], ENT_QUOTES, 'UTF-8');
         $contact = htmlspecialchars($row['contact'], ENT_QUOTES, 'UTF-8');
-        $password = htmlspecialchars($row['password'], ENT_QUOTES, 'UTF-8');
         echo "<tr>
           <td>$fname</td>
           <td>$lname</td>
           <td>$email</td>
           <td>$contact</td>
-          <td>$password</td>
         </tr>";
     
 	echo "</tbody></table><center><a href='admin-panel1.php' class='btn btn-light'>Back to dashboard</a></div></center></div></div></div>";
