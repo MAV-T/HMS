@@ -1,3 +1,4 @@
+<?php session_start(); require_once 'csrf_helper.php'; ?>
 <!DOCTYPE html>
 <?php 
 $con=mysqli_connect("localhost","root","","myhmsdb");
