@@ -1113,7 +1113,7 @@ class UploadHandler
     }
 
     protected function body($str) {
-        echo $str;
+        echo htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
     }
     
     protected function header($str) {
