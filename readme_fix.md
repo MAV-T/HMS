@@ -77,3 +77,64 @@ da affrontare separatamente:
 
 Queste migliorie non rientrano nel fix del CWE-89 qui documentato, ma sono
 consigliate per irrobustire complessivamente l'applicazione.
+
+---
+
+# Fix delle vulnerabilità CSRF (CWE-352) — Batch P3
+
+## Vulnerabilità identificata
+
+**Cross-Site Request Forgery (CSRF)** — CWE-352: *Cross-Site Request Forgery*
+
+- **Finding Fortify:** 38 occorrenze su tutti i pannelli principali
+- **OWASP Top 10 2021:** A01 – Broken Access Control
+- **OpenCRE:** https://www.opencre.org/cre/340-310
+
+La causa radice era l'assenza di qualsiasi meccanismo di verifica dell'origine
+delle richieste POST. Un sito malevolo poteva costruire un form che, al caricamento
+da parte di un utente autenticato, eseguiva azioni privilegiate (prenotazione
+appuntamento, aggiunta/rimozione dottori) senza il consenso dell'utente.
+
+## Pattern adottato: Synchronizer Token Pattern
+
+Il server genera un token crittograficamente sicuro (`random_bytes(32)`) e lo
+memorizza in sessione. Ogni form POST include il token come campo hidden. Al submit
+il server confronta il token POST con quello di sessione tramite `hash_equals()`
+(confronto a tempo costante — previene timing attack). In caso di mismatch la
+richiesta viene rifiutata con HTTP 403.
+
+## Soluzione implementata
+
+File **nuovo** `csrf_helper.php` con tre funzioni centralizzate:
+
+| Funzione              | Scopo                                                         |
+|-----------------------|---------------------------------------------------------------|
+| `generate_csrf_token()` | Genera/recupera il token dalla sessione (`random_bytes(32)`) |
+| `csrf_token_field()`   | Ritorna `<input type="hidden" name="csrf_token" value="...">` |
+| `verify_csrf_token()`  | Verifica il token; HTTP 403 in caso di mismatch              |
+
+## File modificati
+
+| File | Intervento | Form / Handler coperti |
+|---|---|---|
+| `csrf_helper.php` | **NUOVO** | Helper centralizzato (genera, valida token) |
+| `index.php` | Token nei form | Patient Register → func2.php; Doctor Login → func1.php; Admin Login → func3.php |
+| `index1.php` | Token nel form | Patient Login → func.php |
+| `func.php` | Verifica + token | Handler: patsub, update_data, doc_sub; Form: search, payment-update, add-doctor |
+| `func1.php` | Verifica + token | Handler: docsub1; Form: search, payment-update, add-doctor |
+| `func2.php` | Verifica + token | Handler: patsub1, update_data, doc_sub; Form: search, payment-update, add-doctor |
+| `func3.php` | Verifica | Handler: adsub, update_data, doc_sub |
+| `admin-panel.php` | Verifica + token | Handler: app-submit; Form: appointment booking, add-doctor |
+| `admin-panel1.php` | Verifica + token | Handler: docsub, docsub1; Form: doctorsearch, patientsearch, appsearch, add-doctor, delete-doctor, messearch |
+| `doctor-panel.php` | Token nei form | Form: search, add-doctor |
+| `prescribe.php` | Verifica + token | Handler: prescribe; Form: prescription form |
+
+## Finding risolti
+
+**FIX-04** — 38 finding CSRF (CWE-352) — **RISOLTI**
+
+## Note di sicurezza
+
+- `hash_equals()` previene timing attack nel confronto del token
+- `htmlspecialchars()` applicato al token in output (prevenzione XSS nel campo hidden)
+- Business logic invariata in tutti i file

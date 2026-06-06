@@ -1,3 +1,7 @@
+<?php
+session_start();
+require_once 'csrf_helper.php';
+?>
 <html>
 <head>
 	<title>HMS</title>
@@ -99,6 +103,7 @@ function checklen()
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <h3 class="register-heading">Register as Patient</h3>
                                 <form method="post" action="func2.php">
+                                <?= csrf_token_field() ?>
                                 <div class="row register-form">
                                     
                                     <div class="col-md-6">
@@ -149,6 +154,7 @@ function checklen()
                             <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                 <h3  class="register-heading">Login as Doctor</h3>
                                 <form method="post" action="func1.php">
+                                <?= csrf_token_field() ?>
                                 <div class="row register-form">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -170,6 +176,7 @@ function checklen()
                             <div class="tab-pane fade show" id="admin" role="tabpanel" aria-labelledby="profile-tab">
                                 <h3  class="register-heading">Login as Admin</h3>
                                 <form method="post" action="func3.php">
+                                <?= csrf_token_field() ?>
                                 <div class="row register-form">
                                     <div class="col-md-6">
                                         <div class="form-group">

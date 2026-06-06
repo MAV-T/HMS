@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
 include('func1.php');
+require_once 'csrf_helper.php';
 $pid='';
 $ID='';
 $appdate='';
@@ -20,6 +21,7 @@ $pid = $_GET['pid'];
 
 
 if(isset($_POST['prescribe']) && isset($_POST['pid']) && isset($_POST['ID']) && isset($_POST['appdate']) && isset($_POST['apptime']) && isset($_POST['lname']) && isset($_POST['fname'])){
+  verify_csrf_token();
   $appdate = $_POST['appdate'];
   $apptime = $_POST['apptime'];
   $disease = $_POST['disease'];
@@ -119,6 +121,7 @@ if(isset($_POST['prescribe']) && isset($_POST['pid']) && isset($_POST['ID']) && 
 
    <div class="tab-pane" id="list-pres" role="tabpanel" aria-labelledby="list-pres-list">
         <form class="form-group" name="prescribeform" method="post" action="prescribe.php">
+        <?= csrf_token_field() ?>
         
           <div class="row">
                   <div class="col-md-4"><label>Disease:</label></div>

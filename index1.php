@@ -1,4 +1,6 @@
 <?php
+session_start();
+require_once 'csrf_helper.php';
 include("header.php");
 ?>
 <!DOCTYPE html>
@@ -83,6 +85,7 @@ include("header.php");
                 <br>
               <h3 style="margin-top: 10%">Patient Login</h3><br>
               <form class="form-group" method="POST" action="func.php">
+                <?= csrf_token_field() ?>
                 <div class="row" style="margin-top: 10%">
                   <div class="col-md-4"><label>Email-ID: </label></div>
                   <div class="col-md-8"><input type="text" name="email" class="form-control" placeholder="enter email ID" required/></div><br><br>

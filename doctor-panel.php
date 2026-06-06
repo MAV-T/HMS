@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php 
 include('func1.php');
+require_once 'csrf_helper.php';
 $con=mysqli_connect("localhost","root","","myhmsdb");
 $doctor = $_SESSION['dname'];
 if(isset($_GET['cancel']))
@@ -73,6 +74,7 @@ if(isset($_GET['cancel']))
     </ul>
     <form class="form-inline my-2 my-lg-0" method="post" action="search.php">
       <input class="form-control mr-sm-2" type="text" placeholder="Enter contact number" aria-label="Search" name="contact">
+      <?= csrf_token_field() ?>
       <input type="submit" class="btn btn-outline-light" id="inputbtn" name="search_submit" value="Search">
     </form>
   </div>
@@ -344,6 +346,7 @@ if(isset($_GET['cancel']))
       <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>
       <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
         <form class="form-group" method="post" action="admin-panel1.php">
+          <?= csrf_token_field() ?>
           <div class="row">
                   <div class="col-md-4"><label>Doctor Name:</label></div>
                   <div class="col-md-8"><input type="text" class="form-control" name="doctor" required></div><br><br>

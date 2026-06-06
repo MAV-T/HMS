@@ -1,7 +1,9 @@
 <?php
 session_start();
+require_once 'csrf_helper.php';
 $con=mysqli_connect("localhost","root","","myhmsdb");
 if(isset($_POST['adsub'])){
+	verify_csrf_token();
 	$username=$_POST['username1'];
 	$password=$_POST['password2'];
 	$query="select * from admintb where username=? and password=?";
@@ -21,6 +23,7 @@ if(isset($_POST['adsub'])){
 }
 if(isset($_POST['update_data']))
 {
+	verify_csrf_token();
 	$contact=$_POST['contact'];
 	$status=$_POST['status'];
 	$query="update appointmenttb set payment=? where contact=?";
@@ -49,6 +52,7 @@ function display_docs()
 
 if(isset($_POST['doc_sub']))
 {
+	verify_csrf_token();
 	$name=$_POST['name'];
 	$query="insert into doctb(name)values(?)";
 	$stmt=mysqli_prepare($con,$query);

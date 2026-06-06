@@ -2,6 +2,7 @@
 <?php 
 include('func.php');  
 include('newfunc.php');
+require_once 'csrf_helper.php';
 $con=mysqli_connect("localhost","root","","myhmsdb");
 
 
@@ -17,6 +18,7 @@ $con=mysqli_connect("localhost","root","","myhmsdb");
 
 if(isset($_POST['app-submit']))
 {
+  verify_csrf_token();
   $pid = $_SESSION['pid'];
   $username = $_SESSION['username'];
   $email = $_SESSION['email'];
@@ -317,6 +319,7 @@ function get_specs(){
             <div class="card-body">
               <center><h4>Create an appointment</h4></center><br>
               <form class="form-group" method="post" action="admin-panel.php">
+                <?= csrf_token_field() ?>
                 <div class="row">
                   
                   <!-- <?php
@@ -607,6 +610,7 @@ function get_specs(){
       <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>
       <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
         <form class="form-group" method="post" action="func.php">
+          <?= csrf_token_field() ?>
           <label>Doctors name: </label>
           <input type="text" name="name" placeholder="Enter doctors name" class="form-control">
           <br>

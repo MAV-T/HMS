@@ -1,7 +1,9 @@
 <?php
 session_start();
+require_once 'csrf_helper.php';
 $con=mysqli_connect("localhost","root","","myhmsdb");
 if(isset($_POST['patsub'])){
+	verify_csrf_token();
 	$email=$_POST['email'];
 	$password=$_POST['password2'];
 	$query="select * from patreg where email=? and password=?";
@@ -31,6 +33,8 @@ if(isset($_POST['patsub'])){
 }
 if(isset($_POST['update_data']))
 {
+	verify_csrf_token();
+
 	$contact=$_POST['contact'];
 	$status=$_POST['status'];
 	$query="update appointmenttb set payment=? where contact=?";
@@ -43,6 +47,8 @@ if(isset($_POST['update_data']))
 
 if(isset($_POST['doc_sub']))
 {
+	verify_csrf_token();
+
 	$doctor=$_POST['doctor'];
   $dpassword=$_POST['dpassword'];
   $demail=$_POST['demail'];
@@ -82,6 +88,7 @@ function display_admin_panel(){
     </ul>
     <form class="form-inline my-2 my-lg-0" method="post" action="search.php">
       <input class="form-control mr-sm-2" type="text" placeholder="enter contact number" aria-label="Search" name="contact">
+      <?= csrf_token_field() ?>
       <input type="submit" class="btn btn-outline-light my-2 my-sm-0 btn btn-outline-light" id="inputbtn" name="search_submit" value="Search">
     </form>
   </div>
@@ -165,6 +172,7 @@ function display_admin_panel(){
         <div class="card">
           <div class="card-body">
             <form class="form-group" method="post" action="func.php">
+              <?= csrf_token_field() ?>
               <input type="text" name="contact" class="form-control" placeholder="enter contact"><br>
               <select name="status" class="form-control">
                <option value="" disabled selected>Select Payment Status to update</option>
@@ -179,6 +187,7 @@ function display_admin_panel(){
       <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>
       <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
         <form class="form-group" method="post" action="func.php">
+          <?= csrf_token_field() ?>
           <label>Doctors name: </label>
           <input type="text" name="name" placeholder="enter doctors name" class="form-control">
           <br>

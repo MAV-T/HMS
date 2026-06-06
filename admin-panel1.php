@@ -3,9 +3,11 @@
 $con=mysqli_connect("localhost","root","","myhmsdb");
 
 include('newfunc.php');
+require_once 'csrf_helper.php';
 
 if(isset($_POST['docsub']))
 {
+  verify_csrf_token();
   $doctor=$_POST['doctor'];
   $dpassword=$_POST['dpassword'];
   $demail=$_POST['demail'];
@@ -24,6 +26,7 @@ if(isset($_POST['docsub']))
 
 if(isset($_POST['docsub1']))
 {
+  verify_csrf_token();
   $demail=$_POST['demail'];
   $query="delete from doctb where email=?";
   $stmt=mysqli_prepare($con,$query);
@@ -261,6 +264,7 @@ if(isset($_POST['docsub1']))
       <form class="form-group" action="doctorsearch.php" method="post">
         <div class="row">
         <div class="col-md-10"><input type="text" name="doctor_contact" placeholder="Enter Email ID" class = "form-control"></div>
+        <?= csrf_token_field() ?>
         <div class="col-md-2"><input type="submit" name="doctor_search_submit" class="btn btn-primary" value="Search"></div></div>
       </form>
     </div>
@@ -309,6 +313,7 @@ if(isset($_POST['docsub1']))
       <form class="form-group" action="patientsearch.php" method="post">
         <div class="row">
         <div class="col-md-10"><input type="text" name="patient_contact" placeholder="Enter Contact" class = "form-control"></div>
+        <?= csrf_token_field() ?>
         <div class="col-md-2"><input type="submit" name="patient_search_submit" class="btn btn-primary" value="Search"></div></div>
       </form>
     </div>
@@ -431,6 +436,7 @@ if(isset($_POST['docsub1']))
       <form class="form-group" action="appsearch.php" method="post">
         <div class="row">
         <div class="col-md-10"><input type="text" name="app_contact" placeholder="Enter Contact" class = "form-control"></div>
+        <?= csrf_token_field() ?>
         <div class="col-md-2"><input type="submit" name="app_search_submit" class="btn btn-primary" value="Search"></div></div>
       </form>
     </div>
@@ -500,6 +506,7 @@ if(isset($_POST['docsub1']))
 
       <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
         <form class="form-group" method="post" action="admin-panel1.php">
+          <?= csrf_token_field() ?>
           <div class="row">
                   <div class="col-md-4"><label>Doctor Name:</label></div>
                   <div class="col-md-8"><input type="text" class="form-control" name="doctor" onkeydown="return alphaOnly(event);" required></div><br><br>
@@ -530,6 +537,7 @@ if(isset($_POST['docsub1']))
 
       <div class="tab-pane fade" id="list-settings1" role="tabpanel" aria-labelledby="list-settings1-list">
         <form class="form-group" method="post" action="admin-panel1.php">
+          <?= csrf_token_field() ?>
           <div class="row">
           
                   <div class="col-md-4"><label>Email ID:</label></div>
@@ -549,6 +557,7 @@ if(isset($_POST['docsub1']))
       <form class="form-group" action="messearch.php" method="post">
         <div class="row">
         <div class="col-md-10"><input type="text" name="mes_contact" placeholder="Enter Contact" class = "form-control"></div>
+        <?= csrf_token_field() ?>
         <div class="col-md-2"><input type="submit" name="mes_search_submit" class="btn btn-primary" value="Search"></div></div>
       </form>
     </div>
