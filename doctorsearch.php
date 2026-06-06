@@ -38,10 +38,10 @@ if(isset($_POST['doctor_search_submit']))
   <tbody>";
 
 	// while ($row=mysqli_fetch_array($result)){
-		    $username = $row['username'];
-        $password = $row['password'];
-        $email = $row['email'];
-        $docFees = $row['docFees'];
+		    $username = htmlspecialchars($row['username'], ENT_QUOTES, 'UTF-8');
+        $password = htmlspecialchars($row['password'], ENT_QUOTES, 'UTF-8');
+        $email = htmlspecialchars($row['email'], ENT_QUOTES, 'UTF-8');
+        $docFees = htmlspecialchars($row['docFees'], ENT_QUOTES, 'UTF-8');
         echo "<tr>
           <td>$username</td>
           <td>$password</td>

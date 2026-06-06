@@ -493,10 +493,10 @@ function get_specs(){
                       #$contact = $row['contact'];
                   ?>
                       <tr>
-                        <td><?php echo $row['doctor'];?></td>
-                        <td><?php echo $row['docFees'];?></td>
-                        <td><?php echo $row['appdate'];?></td>
-                        <td><?php echo $row['apptime'];?></td>
+                        <td><?php echo htmlspecialchars($row['doctor'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['docFees'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['appdate'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['apptime'], ENT_QUOTES, 'UTF-8');?></td>
                         
                           <td>
                     <?php if(($row['userStatus']==1) && ($row['doctorStatus']==1))  
@@ -519,7 +519,7 @@ function get_specs(){
                         { ?>
 
 													
-	                        <a href="admin-panel.php?ID=<?php echo $row['ID']?>&cancel=update" 
+	                        <a href="admin-panel.php?ID=<?php echo urlencode($row['ID']);?>&cancel=update" 
                               onClick="return confirm('Are you sure you want to cancel this appointment ?')"
                               title="Cancel Appointment" tooltip-placement="top" tooltip="Remove"><button class="btn btn-danger">Cancel</button></a>
 	                        <?php } else {
@@ -571,13 +571,13 @@ function get_specs(){
                     while ($row = mysqli_fetch_array($result)){
                   ?>
                       <tr>
-                        <td><?php echo $row['doctor'];?></td>
-                        <td><?php echo $row['ID'];?></td>
-                        <td><?php echo $row['appdate'];?></td>
-                        <td><?php echo $row['apptime'];?></td>
-                        <td><?php echo $row['disease'];?></td>
-                        <td><?php echo $row['allergy'];?></td>
-                        <td><?php echo $row['prescription'];?></td>
+                        <td><?php echo htmlspecialchars($row['doctor'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['ID'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['appdate'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['apptime'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['disease'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['allergy'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['prescription'], ENT_QUOTES, 'UTF-8');?></td>
                         <td>
                           <form method="get">
                           <!-- <a href="admin-panel.php?ID=" 
@@ -585,8 +585,8 @@ function get_specs(){
                               title="Pay Bill" tooltip-placement="top" tooltip="Remove"><button class="btn btn-success">Pay</button>
                               </a></td> -->
 
-                              <a href="admin-panel.php?ID=<?php echo $row['ID']?>">
-                              <input type ="hidden" name="ID" value="<?php echo $row['ID']?>"/>
+                              <a href="admin-panel.php?ID=<?php echo urlencode($row['ID']);?>">
+                              <input type ="hidden" name="ID" value="<?php echo htmlspecialchars($row['ID'], ENT_QUOTES, 'UTF-8');?>"/>
                               <input type = "submit" onclick="alert('Bill Paid Successfully');" name ="generate_bill" class = "btn btn-success" value="Pay Bill"/>
                               </a>
                               </td>

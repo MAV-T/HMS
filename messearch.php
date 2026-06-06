@@ -37,10 +37,10 @@ if(isset($_POST['mes_search_submit']))
     <tbody>";
   
     
-          $name = $row['name'];
-          $email = $row['email'];
-          $contact = $row['contact'];
-          $message = $row['message'];
+          $name = htmlspecialchars($row['name'], ENT_QUOTES, 'UTF-8');
+          $email = htmlspecialchars($row['email'], ENT_QUOTES, 'UTF-8');
+          $contact = htmlspecialchars($row['contact'], ENT_QUOTES, 'UTF-8');
+          $message = htmlspecialchars($row['message'], ENT_QUOTES, 'UTF-8');
           echo "<tr>
             <td>$name</td>
             <td>$email</td>

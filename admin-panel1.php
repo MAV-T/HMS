@@ -281,11 +281,11 @@ if(isset($_POST['docsub1']))
                     $query = "select * from doctb";
                     $result = mysqli_query($con,$query);
                     while ($row = mysqli_fetch_array($result)){
-                      $username = $row['username'];
-                      $spec = $row['spec'];
-                      $email = $row['email'];
-                      $password = $row['password'];
-                      $docFees = $row['docFees'];
+                      $username = htmlspecialchars($row['username'], ENT_QUOTES, 'UTF-8');
+                      $spec = htmlspecialchars($row['spec'], ENT_QUOTES, 'UTF-8');
+                      $email = htmlspecialchars($row['email'], ENT_QUOTES, 'UTF-8');
+                      $password = htmlspecialchars($row['password'], ENT_QUOTES, 'UTF-8');
+                      $docFees = htmlspecialchars($row['docFees'], ENT_QUOTES, 'UTF-8');
                       
                       echo "<tr>
                         <td>$username</td>
@@ -332,13 +332,13 @@ if(isset($_POST['docsub1']))
                     $query = "select * from patreg";
                     $result = mysqli_query($con,$query);
                     while ($row = mysqli_fetch_array($result)){
-                      $pid = $row['pid'];
-                      $fname = $row['fname'];
-                      $lname = $row['lname'];
-                      $gender = $row['gender'];
-                      $email = $row['email'];
-                      $contact = $row['contact'];
-                      $password = $row['password'];
+                      $pid = htmlspecialchars($row['pid'], ENT_QUOTES, 'UTF-8');
+                      $fname = htmlspecialchars($row['fname'], ENT_QUOTES, 'UTF-8');
+                      $lname = htmlspecialchars($row['lname'], ENT_QUOTES, 'UTF-8');
+                      $gender = htmlspecialchars($row['gender'], ENT_QUOTES, 'UTF-8');
+                      $email = htmlspecialchars($row['email'], ENT_QUOTES, 'UTF-8');
+                      $contact = htmlspecialchars($row['contact'], ENT_QUOTES, 'UTF-8');
+                      $password = htmlspecialchars($row['password'], ENT_QUOTES, 'UTF-8');
                       
                       echo "<tr>
                         <td>$pid</td>
@@ -388,16 +388,16 @@ if(isset($_POST['docsub1']))
                     $query = "select * from prestb";
                     $result = mysqli_query($con,$query);
                     while ($row = mysqli_fetch_array($result)){
-                      $doctor = $row['doctor'];
-                      $pid = $row['pid'];
-                      $ID = $row['ID'];
-                      $fname = $row['fname'];
-                      $lname = $row['lname'];
-                      $appdate = $row['appdate'];
-                      $apptime = $row['apptime'];
-                      $disease = $row['disease'];
-                      $allergy = $row['allergy'];
-                      $pres = $row['prescription'];
+                      $doctor = htmlspecialchars($row['doctor'], ENT_QUOTES, 'UTF-8');
+                      $pid = htmlspecialchars($row['pid'], ENT_QUOTES, 'UTF-8');
+                      $ID = htmlspecialchars($row['ID'], ENT_QUOTES, 'UTF-8');
+                      $fname = htmlspecialchars($row['fname'], ENT_QUOTES, 'UTF-8');
+                      $lname = htmlspecialchars($row['lname'], ENT_QUOTES, 'UTF-8');
+                      $appdate = htmlspecialchars($row['appdate'], ENT_QUOTES, 'UTF-8');
+                      $apptime = htmlspecialchars($row['apptime'], ENT_QUOTES, 'UTF-8');
+                      $disease = htmlspecialchars($row['disease'], ENT_QUOTES, 'UTF-8');
+                      $allergy = htmlspecialchars($row['allergy'], ENT_QUOTES, 'UTF-8');
+                      $pres = htmlspecialchars($row['prescription'], ENT_QUOTES, 'UTF-8');
 
                       
                       echo "<tr>
@@ -463,17 +463,17 @@ if(isset($_POST['docsub1']))
                     while ($row = mysqli_fetch_array($result)){
                   ?>
                       <tr>
-                        <td><?php echo $row['ID'];?></td>
-                        <td><?php echo $row['pid'];?></td>
-                        <td><?php echo $row['fname'];?></td>
-                        <td><?php echo $row['lname'];?></td>
-                        <td><?php echo $row['gender'];?></td>
-                        <td><?php echo $row['email'];?></td>
-                        <td><?php echo $row['contact'];?></td>
-                        <td><?php echo $row['doctor'];?></td>
-                        <td><?php echo $row['docFees'];?></td>
-                        <td><?php echo $row['appdate'];?></td>
-                        <td><?php echo $row['apptime'];?></td>
+                        <td><?php echo htmlspecialchars($row['ID'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['pid'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['fname'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['lname'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['gender'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['email'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['contact'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['doctor'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['docFees'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['appdate'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['apptime'], ENT_QUOTES, 'UTF-8');?></td>
                         <td>
                     <?php if(($row['userStatus']==1) && ($row['doctorStatus']==1))  
                     {
@@ -572,16 +572,12 @@ if(isset($_POST['docsub1']))
                     $result = mysqli_query($con,$query);
                     while ($row = mysqli_fetch_array($result)){
               
-                      #$fname = $row['fname'];
-                      #$lname = $row['lname'];
-                      #$email = $row['email'];
-                      #$contact = $row['contact'];
                   ?>
                       <tr>
-                        <td><?php echo $row['name'];?></td>
-                        <td><?php echo $row['email'];?></td>
-                        <td><?php echo $row['contact'];?></td>
-                        <td><?php echo $row['message'];?></td>
+                        <td><?php echo htmlspecialchars($row['name'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['email'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['contact'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['message'], ENT_QUOTES, 'UTF-8');?></td>
                       </tr>
                     <?php } ?>
                 </tbody>

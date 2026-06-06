@@ -15,26 +15,6 @@ if(isset($_GET['cancel']))
     }
   }
 
-  // if(isset($_GET['prescribe'])){
-    
-  //   $pid = $_GET['pid'];
-  //   $ID = $_GET['ID'];
-  //   $appdate = $_GET['appdate'];
-  //   $apptime = $_GET['apptime'];
-  //   $disease = $_GET['disease'];
-  //   $allergy = $_GET['allergy'];
-  //   $prescription = $_GET['prescription'];
-  //   $query=($con,"insert into prestb(doctor,pid,ID,appdate,apptime,disease,allergy,prescription) values ('$doctor',$pid,$ID,'$appdate','$apptime','$disease','$allergy','$prescription');");
-  //   if($query)
-  //   {
-  //     echo "<script>alert('Prescribed successfully!');</script>";
-  //   }
-  //   else{
-  //     echo "<script>alert('Unable to process your request. Try again!');</script>";
-  //   }
-  // }
-
-
 ?>
 <html lang="en">
   <head>
@@ -193,15 +173,15 @@ if(isset($_GET['cancel']))
                     while ($row = mysqli_fetch_array($result)){
                       ?>
                       <tr>
-                      <td><?php echo $row['pid'];?></td>
-                        <td><?php echo $row['ID'];?></td>
-                        <td><?php echo $row['fname'];?></td>
-                        <td><?php echo $row['lname'];?></td>
-                        <td><?php echo $row['gender'];?></td>
-                        <td><?php echo $row['email'];?></td>
-                        <td><?php echo $row['contact'];?></td>
-                        <td><?php echo $row['appdate'];?></td>
-                        <td><?php echo $row['apptime'];?></td>
+                      <td><?php echo htmlspecialchars($row['pid'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['ID'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['fname'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['lname'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['gender'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['email'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['contact'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['appdate'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['apptime'], ENT_QUOTES, 'UTF-8');?></td>
                         <td>
                     <?php if(($row['userStatus']==1) && ($row['doctorStatus']==1))  
                     {
@@ -223,7 +203,7 @@ if(isset($_GET['cancel']))
                         { ?>
 
 													
-	                        <a href="doctor-panel.php?ID=<?php echo $row['ID']?>&cancel=update" 
+	                        <a href="doctor-panel.php?ID=<?php echo urlencode($row['ID']);?>&cancel=update" 
                               onClick="return confirm('Are you sure you want to cancel this appointment ?')"
                               title="Cancel Appointment" tooltip-placement="top" tooltip="Remove"><button class="btn btn-danger">Cancel</button></a>
 	                        <?php } else {
@@ -238,7 +218,7 @@ if(isset($_GET['cancel']))
                         <?php if(($row['userStatus']==1) && ($row['doctorStatus']==1))  
                         { ?>
 
-                        <a href="prescribe.php?pid=<?php echo $row['pid']?>&ID=<?php echo $row['ID']?>&fname=<?php echo $row['fname']?>&lname=<?php echo $row['lname']?>&appdate=<?php echo $row['appdate']?>&apptime=<?php echo $row['apptime']?>"
+                        <a href="prescribe.php?pid=<?php echo urlencode($row['pid']);?>&ID=<?php echo urlencode($row['ID']);?>&fname=<?php echo urlencode($row['fname']);?>&lname=<?php echo urlencode($row['lname']);?>&appdate=<?php echo urlencode($row['appdate']);?>&apptime=<?php echo urlencode($row['apptime']);?>"
                         tooltip-placement="top" tooltip="Remove" title="prescribe">
                         <button class="btn btn-success">Prescibe</button></a>
                         <?php } else {
@@ -294,16 +274,16 @@ if(isset($_GET['cancel']))
                     while ($row = mysqli_fetch_array($result)){
                   ?>
                       <tr>
-                        <td><?php echo $row['pid'];?></td>
-                        <td><?php echo $row['fname'];?></td>
-                        <td><?php echo $row['lname'];?></td>
-                        <td><?php echo $row['ID'];?></td>
+                        <td><?php echo htmlspecialchars($row['pid'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['fname'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['lname'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['ID'], ENT_QUOTES, 'UTF-8');?></td>
                         
-                        <td><?php echo $row['appdate'];?></td>
-                        <td><?php echo $row['apptime'];?></td>
-                        <td><?php echo $row['disease'];?></td>
-                        <td><?php echo $row['allergy'];?></td>
-                        <td><?php echo $row['prescription'];?></td>
+                        <td><?php echo htmlspecialchars($row['appdate'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['apptime'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['disease'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['allergy'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['prescription'], ENT_QUOTES, 'UTF-8');?></td>
                     
                       </tr>
                     <?php }
@@ -340,20 +320,16 @@ if(isset($_GET['cancel']))
                     $result = mysqli_query($con,$query);
                     while ($row = mysqli_fetch_array($result)){
               
-                      #$fname = $row['fname'];
-                      #$lname = $row['lname'];
-                      #$email = $row['email'];
-                      #$contact = $row['contact'];
                   ?>
                       <tr>
-                        <td><?php echo $row['fname'];?></td>
-                        <td><?php echo $row['lname'];?></td>
-                        <td><?php echo $row['email'];?></td>
-                        <td><?php echo $row['contact'];?></td>
-                        <td><?php echo $row['doctor'];?></td>
-                        <td><?php echo $row['docFees'];?></td>
-                        <td><?php echo $row['appdate'];?></td>
-                        <td><?php echo $row['apptime'];?></td>
+                        <td><?php echo htmlspecialchars($row['fname'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['lname'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['email'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['contact'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['doctor'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['docFees'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['appdate'], ENT_QUOTES, 'UTF-8');?></td>
+                        <td><?php echo htmlspecialchars($row['apptime'], ENT_QUOTES, 'UTF-8');?></td>
                       </tr>
                     <?php } ?>
                 </tbody>

@@ -13,8 +13,11 @@ include("newfunc.php");
 if(isset($_POST['app_search_submit']))
 {
 	$contact=$_POST['app_contact'];
-	$query = "select * from appointmenttb where contact= '$contact';";
-  $result = ($con,$query);
+	$query = "select * from appointmenttb where contact=?";
+  $stmt = mysqli_prepare($con,$query);
+  mysqli_stmt_bind_param($stmt,'s',$contact);
+  mysqli_stmt_execute($stmt);
+  $result = mysqli_stmt_get_result($stmt);
   $row=mysqli_fetch_array($result);
   if($row['fname']=="" & $row['lname']=="" & $row['email']=="" & $row['contact']=="" & $row['doctor']=="" & $row['docFees']=="" & $row['appdate']=="" & $row['apptime']==""){
     echo "<script> alert('No entries found! Please enter valid details'); 
@@ -41,14 +44,14 @@ if(isset($_POST['app_search_submit']))
     <tbody>";
   
     
-          $fname = $row['fname'];
-          $lname = $row['lname'];
-          $email = $row['email'];
-          $contact = $row['contact'];
-          $doctor = $row['doctor'];
-          $docFees= $row['docFees'];
-          $appdate= $row['appdate'];
-          $apptime = $row['apptime'];
+          $fname = htmlspecialchars($row['fname'], ENT_QUOTES, 'UTF-8');
+          $lname = htmlspecialchars($row['lname'], ENT_QUOTES, 'UTF-8');
+          $email = htmlspecialchars($row['email'], ENT_QUOTES, 'UTF-8');
+          $contact = htmlspecialchars($row['contact'], ENT_QUOTES, 'UTF-8');
+          $doctor = htmlspecialchars($row['doctor'], ENT_QUOTES, 'UTF-8');
+          $docFees= htmlspecialchars($row['docFees'], ENT_QUOTES, 'UTF-8');
+          $appdate= htmlspecialchars($row['appdate'], ENT_QUOTES, 'UTF-8');
+          $apptime = htmlspecialchars($row['apptime'], ENT_QUOTES, 'UTF-8');
           if(($row['userStatus']==1) && ($row['doctorStatus']==1))  
                     {
                       $appstatus = "Active";

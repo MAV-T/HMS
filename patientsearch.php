@@ -38,11 +38,11 @@ if(isset($_POST['patient_search_submit']))
   <tbody>";
 
 	
-		    $fname = $row['fname'];
-        $lname = $row['lname'];
-        $email = $row['email'];
-        $contact = $row['contact'];
-        $password = $row['password'];
+		    $fname = htmlspecialchars($row['fname'], ENT_QUOTES, 'UTF-8');
+        $lname = htmlspecialchars($row['lname'], ENT_QUOTES, 'UTF-8');
+        $email = htmlspecialchars($row['email'], ENT_QUOTES, 'UTF-8');
+        $contact = htmlspecialchars($row['contact'], ENT_QUOTES, 'UTF-8');
+        $password = htmlspecialchars($row['password'], ENT_QUOTES, 'UTF-8');
         echo "<tr>
           <td>$fname</td>
           <td>$lname</td>
