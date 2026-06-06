@@ -14,9 +14,32 @@ function doLoadScript( url )
 	if ( !url )
 		return false ;
 
+	// Dominio consentito per il caricamento degli script.
+	// Sostituisci con il dominio reale della tua applicazione.
+	var allowedHost = window.location.hostname ;
+
+	var parsed ;
+	try
+	{
+		// Risolve sia URL assoluti che relativi rispetto alla pagina corrente
+		parsed = new URL( url, window.location.href ) ;
+	}
+	catch ( e )
+	{
+		// URL non valido
+		return false ;
+	}
+
+	// Accetta solo http/https verso il dominio consentito
+	if ( ( parsed.protocol !== "http:" && parsed.protocol !== "https:" )
+		|| parsed.hostname !== allowedHost )
+	{
+		return false ;
+	}
+
 	var s = document.createElement( "script" ) ;
 	s.type = "text/javascript" ;
-	s.src = url ;
+	s.src = parsed.href ;
 	document.getElementsByTagName( "head" )[ 0 ].appendChild( s ) ;
 
 	return true ;
