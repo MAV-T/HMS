@@ -19,7 +19,7 @@ function display_specs() {
   while($row=mysqli_fetch_array($result))
   {
     $spec=$row['spec'];
-    echo '<option data-value="'.$spec.'">'.$spec.'</option>';
+    echo '<option data-value="'.htmlspecialchars($spec, ENT_QUOTES, 'UTF-8').'">'.htmlspecialchars($spec, ENT_QUOTES, 'UTF-8').'</option>';
   }
 }
 
@@ -30,9 +30,9 @@ function display_docs()
  $result = mysqli_query($con,$query);
  while( $row = mysqli_fetch_array($result) )
  {
-  $username = $row['username'];
-  $price = $row['docFees'];
-  $spec = $row['spec'];
+  $username = htmlspecialchars($row['username'], ENT_QUOTES, 'UTF-8');
+  $price = htmlspecialchars($row['docFees'], ENT_QUOTES, 'UTF-8');
+  $spec = htmlspecialchars($row['spec'], ENT_QUOTES, 'UTF-8');
   echo '<option value="' .$username. '" data-value="'.$price.'" data-spec="'.$spec.'">'.$username.'</option>';
  }
 }

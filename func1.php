@@ -35,8 +35,7 @@ function display_docs()
 	while($row=mysqli_fetch_array($result))
 	{
 		$name=$row['name'];
-		# echo'<option value="" disabled selected>Select Doctor</option>';
-		echo '<option value="'.$name.'">'.$name.'</option>';
+		echo '<option value="'.htmlspecialchars($name, ENT_QUOTES, 'UTF-8').'">'.htmlspecialchars($name, ENT_QUOTES, 'UTF-8').'</option>';
 	}
 }
 
